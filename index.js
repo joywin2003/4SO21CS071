@@ -16,17 +16,17 @@ app.get("/", (req, res) => {
 
 app.get("/api", async (req, res) => {
   try {
-    console.log(`${baseUrl}/test/even`);
+    console.log(`${baseUrl}/even`);
     const response = await axios(`${baseUrl}even`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
-    console.log(response.data);
+    console.log(response);
 
-    // res.send(response.data);
+    res.send(response.data.numbers);
   } catch (error) {
-    console.log("error",error);
+    console.log("error");
   }
   
 });
