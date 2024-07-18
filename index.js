@@ -39,7 +39,9 @@ app.get("/numbers/:numberId", async (req, res) => {
       headers: { Authorization: `Bearer ${token}` },
     });
 
-    console.log(response.data.numbers);
+    if (numberId !=="e"){
+        return res.send({ numbers: response.data.numbers });
+    }
     windowCurrentState = response.data.numbers
     numbers = response.data.numbers
     avg = numbers.reduce((a, b) => a + b, 0) / numbers.length
