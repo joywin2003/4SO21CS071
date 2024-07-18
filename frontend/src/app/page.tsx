@@ -14,12 +14,12 @@ const ProductsPage = () => {
   const companyname = "AMZ";
   const categoryname = "Phones";
   const [products, setProducts] = useState<Product[]>([]);
-  const token = process.env.NEXT_PUBLIC_API_TOKEN;
+  const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJNYXBDbGFpbXMiOnsiZXhwIjoxNzIxMzE5NTAzLCJpYXQiOjE3MjEzMTkyMDMsImlzcyI6IkFmZm9yZG1lZCIsImp0aSI6IjFlMzdjYzhjLWFhNjUtNDI5OC1hODk1LTQ2NWY1NjRmYWQ4YiIsInN1YiI6IjIxYTIwLmpveXdpbkBzamVjLmFjLmluIn0sImNvbXBhbnlOYW1lIjoiZ29NYXJ0IiwiY2xpZW50SUQiOiIxZTM3Y2M4Yy1hYTY1LTQyOTgtYTg5NS00NjVmNTY0ZmFkOGIiLCJjbGllbnRTZWNyZXQiOiJpeWpuWGFaS0VublVMbG5VIiwib3duZXJOYW1lIjoiSm95d2luIEJlbm5pcyIsIm93bmVyRW1haWwiOiIyMWEyMC5qb3l3aW5Ac2plYy5hYy5pbiIsInJvbGxObyI6IjRTTzIxQ1MwNzEifQ.9fJ-6JeFASuXuLMBEI6K-leYwej__-ZHgaE--aVKAto";
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          `http://20.244.56.144/test/companies/AMZ/categories/Laptop/products?top=10&minPrice=1&maxPrice=10000`,
+          `/api/companies/AMZ/categories/Laptop/products?top=10&minPrice=1&maxPrice=10000`,
           {
             headers: { Authorization: `Bearer ${token}` },
           }
