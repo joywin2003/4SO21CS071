@@ -12,52 +12,17 @@ import {
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 
-type Product = {
-  name: string;
-  company: string;
-  category: string;
-  rate: number;
+
+
+interface Product {
+  productName: string;
+  price: number;
+  rating: number;
   discount: number;
-  available: boolean;
-};
-
-const products: Product[] = [
-  {
-    name: "Product A",
-    company: "Company X",
-    category: "Category 1",
-    rate: 50.0,
-    discount: 5,
-    available: true,
-  },
-  {
-    name: "Product A",
-    company: "Company X",
-    category: "Category 1",
-    rate: 50.0,
-    discount: 5,
-    available: true,
-  },
-  {
-    name: "Product A",
-    company: "Company X",
-    category: "Category 1",
-    rate: 50.0,
-    discount: 5,
-    available: true,
-  },
-  {
-    name: "Product A",
-    company: "Company X",
-    category: "Category 1",
-    rate: 50.0,
-    discount: 5,
-    available: true,
-  },
-];
-
-export default function ProductTable() {
-  const [sortedProducts, setSortedProducts] = useState<Product[]>(products);
+  availability: string;
+}
+const ProductTable: React.FC<{ product: Product }> = ({ product }) => {
+  const [sortedProducts, setSortedProducts] = useState<Product[]>([]);
 
   const sortByRate = () => {
     const sorted = [...sortedProducts].sort((a, b) => a.rate - b.rate);
@@ -95,12 +60,17 @@ export default function ProductTable() {
         <TableBody>
           {sortedProducts.map((product, index) => (
             <TableRow key={index}>
-              <TableCell className="py-3 px-6 font-medium">{product.name}</TableCell>
-              <TableCell className="py-3 px-6">{product.company}</TableCell>
-              <TableCell className="py-3 px-6">{product.category}</TableCell>
-              <TableCell className="py-3 px-6 text-right">${product.rate.toFixed(2)}</TableCell>
-              <TableCell className="py-3 px-6 text-right">{product.discount}%</TableCell>
-              <TableCell className="py-3 px-6 text-right">{product.available ? "Yes" : "No"}</TableCell>
+              <TableCell className="py-3 px-6 font-medium">
+                {product.productName}
+              </TableCell>
+              <TableCell className="py-3 px-6">${product.price}</TableCell>
+              <TableCell className="py-3 px-6">{product.rating}</TableCell>
+              <TableCell className="py-3 px-6 text-right">
+                {product.discount}%
+              </TableCell>
+              <TableCell className="py-3 px-6 text-right">
+                {product.availability}
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>
@@ -116,13 +86,22 @@ export default function ProductTable() {
         <Button onClick={sortByRate} className=" px-4 rounded">
           Sort by Rate
         </Button>
-        <Button onClick={sortByDiscount} className=" text-white py-2 px-4 rounded">
+        <Button
+          onClick={sortByDiscount}
+          className=" text-white py-2 px-4 rounded"
+        >
           Sort by Discount
         </Button>
-        <Button onClick={sortByAvailability} className=" text-white py-2 px-4 rounded">
+        <Button
+          onClick={sortByAvailability}
+          className=" text-white py-2 px-4 rounded"
+        >
           Sort by Availability
         </Button>
       </div>
     </div>
   );
 }
+
+
+export default ProductTable;
