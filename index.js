@@ -16,6 +16,12 @@ const numberEndpoint = {
   r: `rand`,
 };
 
+
+let windowPrevState = []
+let windowCurrentState = []
+let numbers = []
+let avg = 0
+
 app.get("/", (req, res) => {
   console.log(port, token, baseUrl);
   res.send("I am a backend server");
@@ -32,7 +38,13 @@ app.get("/numbers/:numberId", async (req, res) => {
     const response = await axios.get(`${baseUrl}${numberEndpoint[numberId]}`, {
       headers: { Authorization: `Bearer ${token}` },
     });
-    res.send({ number_id: response.data });
+
+    console.log(response.data.numbers);
+    windowCurrentState = response.data.numbers
+    numbers = response.data.numbers
+    avg = numbers.reduce((a, b) => a + b, 0) / numbers.length
+    console.log(avg)
+    res.send({ windowPrevState, windowCurrentState, numbers, avg });
   } catch (error) {
     console.error("Error fetching data:", error);
     res.status(500).send({ error: "Failed to fetch data" });
